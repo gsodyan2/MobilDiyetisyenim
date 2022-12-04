@@ -4,13 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 // ignore: camel_case_types
 class login_page extends StatelessWidget {
-  login_page({super.key});
+  const login_page({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        // backgroundColor: Colors.grey[300],
         body: SingleChildScrollView(
           reverse: true,
           child: SafeArea(

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1042637763747",
+    "project_id": "mobildiyet-745b3",
+    "storage_bucket": "mobildiyet-745b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042637763747:android:7013da7c8d7440347fbb16",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042637763747-411nkr1l1r3o10uk14f5f8t5tft967li.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_application_1",
+            "certificate_hash": "44e5e49df713a6866835936f4707e61cc55d1dfe"
+          }
+        },
+        {
+          "client_id": "1042637763747-g99dlkjsk2fpaemikaskaa8paf6fjqg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3atqScG4Eq5v70XNbaXLSL_qlcrlYYdU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042637763747-g99dlkjsk2fpaemikaskaa8paf6fjqg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
