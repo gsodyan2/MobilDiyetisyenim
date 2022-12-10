@@ -23,6 +23,7 @@ class _DiyetisyenMainPageController
     const DiyetisyenProfilPage()
   ];
 
+  // ignore: non_constant_identifier_names
   void _OnPressNavigationItems(int newIndex) {
     setState(() {
       _currentSelectedIndex = newIndex;

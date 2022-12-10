@@ -80,7 +80,14 @@ class PastMealReviewCard extends StatelessWidget {
               ),
             ),
             Column(
-              children: [Text("Cem Bozkurt"), Text("Tarih : 02/06/2022 19:33")],
+              children: [
+                Text("Cem Bozkurt",
+                    style: const TextStyle(
+                        fontSize: 11, fontWeight: FontWeight.bold)),
+                Text("Tarih : 02/06/2022 19:33",
+                    style: const TextStyle(
+                        fontSize: 11, fontWeight: FontWeight.bold))
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
