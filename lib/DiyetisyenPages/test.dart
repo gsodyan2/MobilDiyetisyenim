@@ -20,7 +20,6 @@ class Test extends StatelessWidget {
     Patient? _patient = patient as Patient?;
     String? _photoUrl;
     Meal meal = Meal();
-    meal.mealManager = _mealManager;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

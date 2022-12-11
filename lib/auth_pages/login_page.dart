@@ -110,7 +110,8 @@ class login_page extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Test(value)),
+                                          builder: (context) =>
+                                              InsertMeal(value as Patient?)),
                                     )
                                   });
                         },
