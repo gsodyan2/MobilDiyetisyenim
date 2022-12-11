@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
+import 'package:flutter_application_1/DiyetisyenPages/test.dart';
+import 'package:flutter_application_1/insertMeal.dart';
+import 'package:flutter_application_1/model/patient.dart';
+import 'package:flutter_application_1/service/auth.dart';
 import 'signin_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // ignore: camel_case_types
 class login_page extends StatelessWidget {
-  const login_page({super.key});
+  login_page({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +57,11 @@ class login_page extends StatelessWidget {
                           color: const Color.fromRGBO(255, 139, 113, 1)),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: TextField(
-                        decoration: InputDecoration(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                             border: InputBorder.none, hintText: 'Email'),
                       ),
                     ),
@@ -68,11 +79,12 @@ class login_page extends StatelessWidget {
                             width: 3,
                             color: const Color.fromRGBO(255, 139, 113, 1)),
                         borderRadius: BorderRadius.circular(16)),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.only(left: 20.0),
-                      child: TextField(
+                      child: TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: InputBorder.none, hintText: 'Şifre'),
                       ),
                     ),
@@ -89,15 +101,29 @@ class login_page extends StatelessWidget {
                       color: Colors.orange[800],
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Center(
-                      child: Text(
-                        'Giriş',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                    ),
+                    child: TextButton(
+                        onPressed: () {
+                          _authService
+                              .signIn(_emailController.text,
+                                  _passwordController.text)
+                              .then((value) => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Test(value)),
+                                    )
+                                  });
+                        },
+                        style: TextButton.styleFrom(
+                          minimumSize: Size(180, 2),
+                        ),
+                        child: const Text(
+                          'Giriş',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        )),
                   ),
                 ),
                 const SizedBox(
@@ -123,7 +149,7 @@ class login_page extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const signin_page()),
+                                  builder: (context) => signin_page()),
                             );
                           },
                         )
