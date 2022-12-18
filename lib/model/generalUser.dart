@@ -9,7 +9,6 @@ class GeneralUser {
   late String city;
 
   GeneralUser();
-
   GeneralUser.withData(this.uid, this.email, this.fullName, this.job,
       this.height, this.weight, this.isNutritionist, this.city);
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanMainPageController.dart';
+import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPageController.dart';
 import 'package:flutter_application_1/auth_pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -74,6 +76,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return DiyetisyenMainPageController();
+    return login_page();
   }
 }

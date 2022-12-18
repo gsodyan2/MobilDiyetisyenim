@@ -15,7 +15,7 @@ class DiyetisyenMainPageController extends StatefulWidget {
 
 class _DiyetisyenMainPageController
     extends State<DiyetisyenMainPageController> {
-  int _currentSelectedIndex = 3;
+  int _currentSelectedIndex = 0;
   final List<Widget> _mainPages = <Widget>[
     const DiyetisyenMainPage(),
     const DiyetisyenPastReviewsPage(),
