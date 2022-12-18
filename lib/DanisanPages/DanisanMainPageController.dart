@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenPastReviewsPage.dart';
-import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
-import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPage.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanProfilPage.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanMainPage.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanDiyetisyenPage.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanPastReviewsPage.dart';
 
-import 'DiyetistenDanisanlarPage.dart';
 
-class DiyetisyenMainPageController extends StatefulWidget {
-  const DiyetisyenMainPageController({super.key});
+class DanisanMainPageController extends StatefulWidget {
+  const DanisanMainPageController({super.key});
   @override
-  State<DiyetisyenMainPageController> createState() =>
-      _DiyetisyenMainPageController();
+  State<DanisanMainPageController> createState() =>
+      _DanisanMainPageController();
 }
 
-class _DiyetisyenMainPageController
-    extends State<DiyetisyenMainPageController> {
-  int _currentSelectedIndex = 0;
+class _DanisanMainPageController
+    extends State<DanisanMainPageController> {
+  int _currentSelectedIndex = 3;
   final List<Widget> _mainPages = <Widget>[
-    const DiyetisyenMainPage(),
-    const DiyetisyenPastReviewsPage(),
-    const DiyetisyenDanisanlarPage(),
-    const DiyetisyenProfilPage()
+    const DanisanMainPage(),
+    const DanisanPastReviewsPage(),
+    const DanisanDiyetisyenPage(),
+    const DanisanProfilPage()
   ];
 
   // ignore: non_constant_identifier_names
