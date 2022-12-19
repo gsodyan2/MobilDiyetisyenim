@@ -3,6 +3,7 @@ class GeneralUser {
   late String email;
   late String fullName;
   late String job;
+  late String gender;
   late int height;
   late int weight;
   late bool isNutritionist;
@@ -10,5 +11,5 @@ class GeneralUser {
 
   GeneralUser();
   GeneralUser.withData(this.uid, this.email, this.fullName, this.job,
-      this.height, this.weight, this.isNutritionist, this.city);
+      this.gender, this.height, this.weight, this.isNutritionist, this.city);
 }

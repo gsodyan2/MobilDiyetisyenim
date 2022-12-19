@@ -5,7 +5,9 @@ class Patient {
   late String nutritionistId;
   late double vki;
 
-  Patient();
+  Patient(GeneralUser? patient);
+  Patient.fromGeneralUser(GeneralUser? generalUser);
+
   Patient.fromData(this.user, this.nutritionistId) {
     var height = user.height / 100;
     vki = user.weight / (height * height);

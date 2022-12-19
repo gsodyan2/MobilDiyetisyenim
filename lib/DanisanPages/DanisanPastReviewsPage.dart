@@ -3,11 +3,14 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/auth_pages/signin_page.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanReviewMealPage.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/patient.dart';
 
 import '../ThemeRelatedSources/AppColors.dart';
 
 class DanisanPastReviewsPage extends StatelessWidget {
-  const DanisanPastReviewsPage({super.key});
+  const DanisanPastReviewsPage({super.key, required this.patient});
+  final Patient? patient;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,6 @@ class PastMealReviewCard extends StatelessWidget {
     } else {
       _signImageLink = "assets/decline_sign.png";
     }
-  
   }
 
   // TODO Daha sonra yemek resmi için değişken tanımlanacak.
@@ -70,8 +72,7 @@ class PastMealReviewCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10))),
         elevation: 10,
         color: Color.fromARGB(207, 255, 246, 246),
-        child:
-         Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
@@ -93,15 +94,15 @@ class PastMealReviewCard extends StatelessWidget {
               ],
             ),
             TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DanisanReviewMealPage()));
-                    },
-                    child: Icon(
-                      Icons.navigate_next,
-                    )),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DanisanReviewMealPage()));
+                },
+                child: Icon(
+                  Icons.navigate_next,
+                )),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Image.asset(

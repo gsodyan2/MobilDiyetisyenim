@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/patient.dart';
 
 class DanisanDiyetisyenPage extends StatelessWidget {
-  const DanisanDiyetisyenPage({super.key});
+  const DanisanDiyetisyenPage({super.key, required this.patient});
+  final Patient? patient;
 
   @override
   Widget build(BuildContext context) {
     return Column(textBaseline: TextBaseline.alphabetic, children: [
-      Container(  width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.05,
-          decoration: BoxDecoration(
-            color: Color(0xFFFF8B71),
+      Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.05,
+        decoration: BoxDecoration(
+          color: Color(0xFFFF8B71),
+        ),
+        child: Align(
+          alignment: AlignmentDirectional(0, 0.05),
+          child: Text(
+            'DİYETİSYEN BİLGİLERİM',
+            textAlign: TextAlign.center,
           ),
-          child: Align(
-            alignment: AlignmentDirectional(0, 0.05),
-            child: Text(
-              'DİYETİSYEN BİLGİLERİM',
-              textAlign: TextAlign.center,
-            ),
-          ),),
+        ),
+      ),
       const Center(
           child: Padding(
         padding: EdgeInsets.all(12),

@@ -1,11 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/model/nutritionist.dart';
 
 class DiyetisyenProfilPage extends StatelessWidget {
-  const DiyetisyenProfilPage({super.key});
+  const DiyetisyenProfilPage({super.key, required this.nutritionist});
+  final Nutritionist? nutritionist;
 
   @override
   Widget build(BuildContext context) {
+    Nutritionist? _nutritionist = nutritionist;
     return Column(textBaseline: TextBaseline.alphabetic, children: [
       const Center(
           child: Padding(
@@ -15,12 +20,21 @@ class DiyetisyenProfilPage extends StatelessWidget {
           backgroundImage: AssetImage('assets/empty_profile.png'),
         ),
       )),
-      PropertyBox(propertyName: "İsim", valueName: "Cem Bozkurt"),
-      PropertyBox(propertyName: "Yaş", valueName: "29"),
-      PropertyBox(propertyName: "Cinsiyet", valueName: "Erkek"),
-      PropertyBox(propertyName: "Numara", valueName: "5554443322"),
-      PropertyBox(propertyName: "Email", valueName: "cm@email.com"),
-      PropertyBox(propertyName: "Okul", valueName: "İstanbul Üniversitesi")
+      PropertyBox(
+          propertyName: "İsim Soyisim",
+          valueName: _nutritionist?.user.fullName ?? ""),
+      PropertyBox(
+          propertyName: "Boy",
+          valueName: _nutritionist?.user.height.toString() ?? ""),
+      PropertyBox(
+          propertyName: "Kilo",
+          valueName: _nutritionist?.user.weight.toString() ?? ""),
+      PropertyBox(
+          propertyName: "Cinsiyet",
+          valueName: _nutritionist?.user.gender ?? ""),
+      PropertyBox(
+          propertyName: "Şehir", valueName: _nutritionist?.user.city ?? ""),
+      PropertyBox(propertyName: "Meslek", valueName: "Diyetisyen")
     ]);
   }
 }

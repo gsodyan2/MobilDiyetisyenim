@@ -3,11 +3,14 @@ import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenPastReviewsPage.
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPage.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/model/nutritionist.dart';
 
 import 'DiyetistenDanisanlarPage.dart';
 
 class DiyetisyenMainPageController extends StatefulWidget {
-  const DiyetisyenMainPageController({super.key});
+  const DiyetisyenMainPageController({super.key, required this.nutritionist});
+
+  final Nutritionist? nutritionist;
   @override
   State<DiyetisyenMainPageController> createState() =>
       _DiyetisyenMainPageController();
@@ -16,12 +19,6 @@ class DiyetisyenMainPageController extends StatefulWidget {
 class _DiyetisyenMainPageController
     extends State<DiyetisyenMainPageController> {
   int _currentSelectedIndex = 0;
-  final List<Widget> _mainPages = <Widget>[
-    const DiyetisyenMainPage(),
-    const DiyetisyenPastReviewsPage(),
-    const DiyetisyenDanisanlarPage(),
-    const DiyetisyenProfilPage()
-  ];
 
   // ignore: non_constant_identifier_names
   void _OnPressNavigationItems(int newIndex) {
@@ -32,6 +29,14 @@ class _DiyetisyenMainPageController
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _mainPages = <Widget>[
+      const DiyetisyenMainPage(),
+      const DiyetisyenPastReviewsPage(),
+      const DiyetisyenDanisanlarPage(),
+      DiyetisyenProfilPage(
+        nutritionist: widget.nutritionist,
+      )
+    ];
     return Scaffold(
       appBar: AppBar(
           title: const Center(child: Text("Mobil Diyetisyenim")),

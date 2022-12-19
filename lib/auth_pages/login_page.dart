@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanMainPageController.dart';
+import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPageController.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/test.dart';
 import 'package:flutter_application_1/insertMeal.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/nutritionist.dart';
 import 'package:flutter_application_1/model/patient.dart';
 import 'package:flutter_application_1/service/auth.dart';
 import 'signin_page.dart';
@@ -18,6 +22,9 @@ class login_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GeneralUser? generalUser;
+    Patient? _patient;
+    Nutritionist? _nutritionist = Nutritionist();
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -101,18 +108,37 @@ class login_page extends StatelessWidget {
                       color: Colors.orange[800],
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: TextButton(
-                        onPressed: () {
+                    child: ElevatedButton(
+                        onPressed: () async {
                           _authService
                               .signIn(_emailController.text,
                                   _passwordController.text)
-                              .then((value) => {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              InsertMeal(value as Patient?)),
-                                    )
+                              .then((value) async => {
+                                    if (value?.isNutritionist ?? false)
+                                      {
+                                        _nutritionist?.user = value!,
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DiyetisyenMainPageController(
+                                                      nutritionist:
+                                                          _nutritionist,
+                                                    )))
+                                      }
+                                    else
+                                      {
+                                        _patient = await _authService
+                                            .getPatient(value),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DanisanMainPageController(
+                                                    patient: _patient,
+                                                  )),
+                                        )
+                                      }
                                   });
                         },
                         style: TextButton.styleFrom(

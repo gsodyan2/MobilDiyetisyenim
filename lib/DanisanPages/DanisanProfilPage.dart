@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/patient.dart';
+import 'package:flutter_application_1/service/auth.dart';
 
 class DanisanProfilPage extends StatelessWidget {
-  const DanisanProfilPage({super.key});
+  DanisanProfilPage({super.key, required this.patient});
+
+  final Patient? patient;
+
+  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
+    Patient? _currentPatinet = patient;
     return Column(textBaseline: TextBaseline.alphabetic, children: [
-      Container(  width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.05,
-          decoration: BoxDecoration(
-            color: Color(0xFFFF8B71),
+      Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.05,
+        decoration: BoxDecoration(
+          color: Color(0xFFFF8B71),
+        ),
+        child: Align(
+          alignment: AlignmentDirectional(0, 0.05),
+          child: Text(
+            "Profilim",
+            textAlign: TextAlign.center,
           ),
-          child: Align(
-            alignment: AlignmentDirectional(0, 0.05),
-            child: Text(
-              'PROFİL BİLGİLERİM',
-              textAlign: TextAlign.center,
-            ),
-          ),),
+        ),
+      ),
       const Center(
           child: Padding(
         padding: EdgeInsets.all(12),
@@ -27,12 +37,22 @@ class DanisanProfilPage extends StatelessWidget {
           backgroundImage: AssetImage('assets/empty_profile.png'),
         ),
       )),
-      PropertyBox(propertyName: "İsim", valueName: "Gökahn Soydan"),
-      PropertyBox(propertyName: "Yaş", valueName: "29"),
-      PropertyBox(propertyName: "Cinsiyet", valueName: "Erkek"),
-      PropertyBox(propertyName: "Numara", valueName: "5554443322"),
-      PropertyBox(propertyName: "Email", valueName: "cm@email.com"),
-      PropertyBox(propertyName: "Okul", valueName: "İstanbul Üniversitesi")
+      PropertyBox(
+          propertyName: "İsim Soyisim",
+          valueName: _currentPatinet?.user.fullName ?? ""),
+      PropertyBox(
+          propertyName: "Boy",
+          valueName: _currentPatinet?.user.height.toString() ?? ""),
+      PropertyBox(
+          propertyName: "Kilo",
+          valueName: _currentPatinet?.user.weight.toString() ?? ""),
+      PropertyBox(
+          propertyName: "Cinsiyet",
+          valueName: _currentPatinet?.user.gender ?? ""),
+      PropertyBox(
+          propertyName: "Şehir", valueName: _currentPatinet?.user.city ?? ""),
+      PropertyBox(
+          propertyName: "Meslek", valueName: _currentPatinet?.user.job ?? "")
     ]);
   }
 }
@@ -90,5 +110,3 @@ class EmptyBox extends StatelessWidget {
     return SizedBox(width: width, height: height);
   }
 }
-
-

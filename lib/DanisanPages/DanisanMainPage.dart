@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanReviewMealPage.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/patient.dart';
 
 import '../ThemeRelatedSources/AppColors.dart';
 
 class DanisanMainPage extends StatefulWidget {
-  const DanisanMainPage({super.key});
-
+  const DanisanMainPage({super.key, required this.patient});
+  final Patient? patient;
   @override
   State<DanisanMainPage> createState() => _DanisanMainPage();
 }
@@ -37,7 +39,7 @@ class _DanisanMainPage extends State<DanisanMainPage> {
             backgroundImage: AssetImage('assets/empty_profile.png'),
           ),
         )),
-        PropertyBox(propertyName: "İsim", valueName: "Gökahn Soydan"),
+        PropertyBox(propertyName: "İsim", valueName: ""),
         PropertyBox(propertyName: "Yaş", valueName: "29"),
         Container(
             width: MediaQuery.of(context).size.width,

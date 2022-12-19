@@ -22,6 +22,7 @@ class AuthService {
       "fullName": fullName,
       "city": city,
       "job": job,
+      "gender": gender,
       "height": height,
       "weight": weight,
       "isNutritionist": false
@@ -30,24 +31,28 @@ class AuthService {
     return user.user;
   }
 
-  Future<Object?> signIn(
+  Future<GeneralUser?> signIn(
     String email,
     String password,
   ) async {
     try {
       UserCredential user = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      GeneralUser currentUser = await getSignInUserData(user.user?.uid);
+      GeneralUser? currentUser = await getSignInUserData(user.user?.uid);
 
-      if (currentUser.isNutritionist) {
-        return Nutritionist.fromData(currentUser);
-      } else {
-        String nutId = await getNutritionistId(currentUser.uid);
-        return Patient.fromData(currentUser, nutId);
-      }
+      return currentUser;
     } on FirebaseAuthException catch (e) {
       print('hata');
     }
+  }
+
+  Future<Patient?> getPatient(GeneralUser? currentUser) async {
+    String nutId = await getNutritionistId(currentUser?.uid);
+    return Patient.fromData(currentUser!, nutId);
+  }
+
+  Future<Nutritionist> getNutrionist(GeneralUser currentUser) async {
+    return Nutritionist.fromData(currentUser);
   }
 
   signout() async {
@@ -64,6 +69,7 @@ class AuthService {
     generalUser.uid = uid!;
     generalUser.email = allData!["email"];
     generalUser.fullName = allData["fullName"];
+    generalUser.gender = allData["gender"];
     generalUser.height = allData["height"];
     generalUser.isNutritionist = allData["isNutritionist"];
     generalUser.weight = allData["weight"];

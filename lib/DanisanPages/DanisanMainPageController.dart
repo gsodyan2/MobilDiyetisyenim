@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanProfilPage.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanMainPage.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanDiyetisyenPage.dart';
+import 'package:flutter_application_1/DiyetisyenPages/test.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanPastReviewsPage.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/patient.dart';
 
-
-class DanisanMainPageController extends StatefulWidget {
-  const DanisanMainPageController({super.key});
-  @override
-  State<DanisanMainPageController> createState() =>
-      _DanisanMainPageController();
+void init() async {
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
-class _DanisanMainPageController
-    extends State<DanisanMainPageController> {
-  int _currentSelectedIndex = 3;
-  final List<Widget> _mainPages = <Widget>[
-    const DanisanMainPage(),
-    const DanisanPastReviewsPage(),
-    const DanisanDiyetisyenPage(),
-    const DanisanProfilPage()
-  ];
+class DanisanMainPageController extends StatefulWidget {
+  const DanisanMainPageController({super.key, required this.patient});
+  final Patient? patient;
 
-  // ignore: non_constant_identifier_names
+  @override
+  _DanisanMainPageController createState() => _DanisanMainPageController();
+}
+
+class _DanisanMainPageController extends State<DanisanMainPageController> {
+  int _currentSelectedIndex = 3;
+
   void _OnPressNavigationItems(int newIndex) {
     setState(() {
       _currentSelectedIndex = newIndex;
@@ -32,6 +31,12 @@ class _DanisanMainPageController
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _mainPages = <Widget>[
+      DanisanMainPage(patient: widget.patient),
+      DanisanPastReviewsPage(patient: widget.patient),
+      DanisanDiyetisyenPage(patient: widget.patient),
+      DanisanProfilPage(patient: widget.patient)
+    ];
     return Scaffold(
       appBar: AppBar(
           title: const Center(child: Text("Mobil Diyetisyenim")),
