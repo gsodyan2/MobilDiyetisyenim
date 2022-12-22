@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
 import 'package:flutter_application_1/model/generalUser.dart';
+import 'package:flutter_application_1/model/nutritionist.dart';
 import 'package:flutter_application_1/model/patient.dart';
+import 'package:flutter_application_1/service/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DanisanDiyetisyenPage extends StatelessWidget {
-  const DanisanDiyetisyenPage({super.key, required this.patient});
+  DanisanDiyetisyenPage({super.key, required this.patient});
   final Patient? patient;
 
+  AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
-    return Column(textBaseline: TextBaseline.alphabetic, children: [
-      Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.05,
-        decoration: BoxDecoration(
-          color: Color(0xFFFF8B71),
-        ),
-        child: Align(
-          alignment: AlignmentDirectional(0, 0.05),
-          child: Text(
-            'DİYETİSYEN BİLGİLERİM',
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-      const Center(
-          child: Padding(
-        padding: EdgeInsets.all(12),
-        child: CircleAvatar(
-          radius: 75,
-          backgroundImage: AssetImage('assets/empty_profile.png'),
-        ),
-      )),
-      PropertyBox(propertyName: "İsim", valueName: "Gökahn Soydan"),
-      PropertyBox(propertyName: "Yaş", valueName: "29"),
-      PropertyBox(propertyName: "Cinsiyet", valueName: "Erkek"),
-      PropertyBox(propertyName: "Numara", valueName: "5554443322"),
-      PropertyBox(propertyName: "Email", valueName: "cm@email.com"),
-      PropertyBox(propertyName: "Okul", valueName: "İstanbul Üniversitesi")
-    ]);
+    AuthService _auth = AuthService();
+
+    return FutureBuilder(
+      future: _auth.getNutritionistWithPatientId(patient?.user.uid),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final snapshotUserData = snapshot.data?.user;
+          return Column(textBaseline: TextBaseline.alphabetic, children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                'DİYETİSYEN BİLGİLERİM',
+                style: GoogleFonts.bebasNeue(fontSize: 32),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const Center(
+                child: Padding(
+              padding: EdgeInsets.all(12),
+              child: CircleAvatar(
+                radius: 75,
+                backgroundImage: NetworkImage(
+                  "https://www.shutterstock.com/image-vector/nutritionist-diet-260nw-411321337.jpg",
+                ),
+              ),
+            )),
+            PropertyBox(
+                propertyName: "İsim Soyisim",
+                valueName: snapshotUserData!.fullName),
+            PropertyBox(
+                propertyName: "Cinsiyet", valueName: snapshotUserData.gender),
+            PropertyBox(
+                propertyName: "Şehir", valueName: snapshotUserData.city),
+            PropertyBox(
+                propertyName: "Meslek", valueName: snapshotUserData.job),
+          ]);
+        } else {
+          return SizedBox(
+            height: 100,
+            width: 100,
+          );
+        }
+      },
+    );
   }
 }
 
