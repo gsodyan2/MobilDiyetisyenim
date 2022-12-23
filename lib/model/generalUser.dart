@@ -11,5 +11,5 @@ class GeneralUser {
 
   GeneralUser();
   GeneralUser.withData(this.uid, this.email, this.fullName, this.job,
-      this.gender, this.height, this.weight, this.isNutritionist, this.city);
+      this.height, this.weight, this.isNutritionist, this.city);
 }

@@ -1,39 +1,63 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/DanisanPages/DanisanDiyetisyenPage.dart';
 import 'package:flutter_application_1/auth_pages/signin_page.dart';
 
 import '../ThemeRelatedSources/AppColors.dart';
+import '../UserControllers/DiyetisyenUserController.dart';
 
-class DiyetisyenPastReviewsPage extends StatelessWidget {
-  const DiyetisyenPastReviewsPage({super.key});
+class DiyetisyenPastReviewsPage extends StatefulWidget {
+  const DiyetisyenPastReviewsPage({super.key, required this.userController});
+
+  final DiyetisyenUserController? userController;
+
+  @override
+  State<DiyetisyenPastReviewsPage> createState() =>
+      _DiyetisyenPastReviewsPageState();
+}
+
+class _DiyetisyenPastReviewsPageState extends State<DiyetisyenPastReviewsPage> {
+  late List<Widget> mealInfoList = <Widget>[
+    Center(
+      child: EmptyBox(
+        height: 300,
+        width: 50,
+      ),
+    ),
+    Center(child: CircularProgressIndicator())
+  ];
+  bool isPageSet = false;
 
   @override
   Widget build(BuildContext context) {
+    SetPastMealList();
+
     return ListView(
-      children: [
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: false),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: false),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: false),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: false),
-        PastMealReviewCard(
-            username: "Cem Bozkurt", date: "aaa", isAprroved: true)
-      ],
+      children: mealInfoList,
     );
+  }
+
+  void SetPastMealList() async {
+    if (isPageSet) return;
+
+    var mealList = await widget.userController?.GetReviewedMeals();
+    List<Widget> newList = <Widget>[];
+
+    setState(() {
+      if (mealList != null) {
+        for (var meal in mealList) {
+          newList.add(PastMealReviewCard(
+              username: meal.username,
+              date: meal.date,
+              isAprroved: meal.isConfirm,
+              imageUrl: meal.photoUrl));
+        }
+
+        mealInfoList = newList;
+        isPageSet = true;
+      }
+    });
   }
 }
 
@@ -42,7 +66,8 @@ class PastMealReviewCard extends StatelessWidget {
       {Key? key,
       required this.username,
       required this.date,
-      required this.isAprroved})
+      required this.isAprroved,
+      required this.imageUrl})
       : super(key: key) {
     if (isAprroved) {
       _signImageLink = "assets/approve_sign.png";
@@ -54,6 +79,7 @@ class PastMealReviewCard extends StatelessWidget {
   // TODO Daha sonra yemek resmi için değişken tanımlanacak.
   final String username;
   final String date;
+  final String imageUrl;
   final bool isAprroved;
 
   String _signImageLink = "assets/approve_sign.png";
@@ -72,19 +98,18 @@ class PastMealReviewCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                "assets/meal_image.jpg",
-                height: 50,
-                width: 75,
-              ),
-            ),
+                padding: const EdgeInsets.all(10.0),
+                child: Image.network(
+                  imageUrl,
+                  height: 50,
+                  width: 75,
+                )),
             Column(
               children: [
-                Text("Cem Bozkurt",
+                Text(username,
                     style: const TextStyle(
                         fontSize: 11, fontWeight: FontWeight.bold)),
-                Text("Tarih : 02/06/2022 19:33",
+                Text(date,
                     style: const TextStyle(
                         fontSize: 11, fontWeight: FontWeight.bold))
               ],

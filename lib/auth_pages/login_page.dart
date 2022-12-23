@@ -116,28 +116,24 @@ class login_page extends StatelessWidget {
                               .then((value) async => {
                                     if (value?.isNutritionist ?? false)
                                       {
-                                        _nutritionist?.user = value!,
-                                        Navigator.push(
-                                            context,
+                                        _nutritionist.user = value!,
+                                        Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     DiyetisyenMainPageController(
-                                                      nutritionist:
-                                                          _nutritionist,
-                                                    )))
+                                                        nutritionist:
+                                                            _nutritionist)))
                                       }
                                     else
                                       {
                                         _patient = await _authService
                                             .getPatient(value),
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DanisanMainPageController(
-                                                    patient: _patient,
-                                                  )),
-                                        )
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DanisanMainPageController(
+                                                      patient: _patient,
+                                                    )))
                                       }
                                   });
                         },

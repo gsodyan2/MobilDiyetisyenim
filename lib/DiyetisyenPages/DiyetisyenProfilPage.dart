@@ -1,17 +1,47 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/UserControllers/DiyetisyenUserController.dart';
+import 'package:flutter_application_1/model/generalUser.dart';
 import 'package:flutter_application_1/model/nutritionist.dart';
 
-class DiyetisyenProfilPage extends StatelessWidget {
-  const DiyetisyenProfilPage({super.key, required this.nutritionist});
-  final Nutritionist? nutritionist;
+class DiyetisyenProfilPage extends StatefulWidget {
+  DiyetisyenProfilPage({super.key, required this.userController});
+
+  final DiyetisyenUserController? userController;
+
+  @override
+  State<DiyetisyenProfilPage> createState() => _DiyetisyenProfilPageState();
+}
+
+class _DiyetisyenProfilPageState extends State<DiyetisyenProfilPage> {
+  GeneralUser? profilInfo;
+  bool isProfilSet = false;
+
+  List<Widget> mainWidget = <Widget>[
+    Center(
+      child: EmptyBox(height: 300, width: 50),
+    ),
+    Center(child: CircularProgressIndicator())
+  ];
 
   @override
   Widget build(BuildContext context) {
-    Nutritionist? _nutritionist = nutritionist;
-    return Column(textBaseline: TextBaseline.alphabetic, children: [
+    SetProfilInfo();
+    return Column(textBaseline: TextBaseline.alphabetic, children: mainWidget);
+  }
+
+  void SetProfilInfo() async {
+    if (isProfilSet) return;
+    print("Set profil info worked");
+    var x = await widget.userController!.GetProfileInfo();
+    setState(() {
+      profilInfo = x;
+    });
+
+    List<Widget> profilSetupWidget = <Widget>[
       const Center(
           child: Padding(
         padding: EdgeInsets.all(12),
@@ -21,21 +51,19 @@ class DiyetisyenProfilPage extends StatelessWidget {
         ),
       )),
       PropertyBox(
-          propertyName: "İsim Soyisim",
-          valueName: _nutritionist?.user.fullName ?? ""),
+          propertyName: "İsim Soyisim", valueName: profilInfo?.fullName ?? ""),
       PropertyBox(
-          propertyName: "Boy",
-          valueName: _nutritionist?.user.height.toString() ?? ""),
+          propertyName: "Boy", valueName: profilInfo?.height.toString() ?? ""),
       PropertyBox(
-          propertyName: "Kilo",
-          valueName: _nutritionist?.user.weight.toString() ?? ""),
+          propertyName: "Kilo", valueName: profilInfo?.weight.toString() ?? ""),
       PropertyBox(
-          propertyName: "Cinsiyet",
-          valueName: _nutritionist?.user.gender ?? ""),
-      PropertyBox(
-          propertyName: "Şehir", valueName: _nutritionist?.user.city ?? ""),
+          propertyName: "Cinsiyet", valueName: profilInfo?.gender ?? ""),
+      PropertyBox(propertyName: "Şehir", valueName: profilInfo?.city ?? ""),
       PropertyBox(propertyName: "Meslek", valueName: "Diyetisyen")
-    ]);
+    ];
+
+    mainWidget = profilSetupWidget;
+    isProfilSet = true;
   }
 }
 

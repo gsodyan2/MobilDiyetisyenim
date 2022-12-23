@@ -3,14 +3,19 @@ import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenPastReviewsPage.
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPage.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
+import 'package:flutter_application_1/UserControllers/DiyetisyenUserController.dart';
 import 'package:flutter_application_1/model/nutritionist.dart';
 
 import 'DiyetistenDanisanlarPage.dart';
 
 class DiyetisyenMainPageController extends StatefulWidget {
-  const DiyetisyenMainPageController({super.key, required this.nutritionist});
+  DiyetisyenMainPageController({super.key, required this.nutritionist}) {
+    userController = DiyetisyenUserController(userId: nutritionist!.user.uid);
+  }
 
   final Nutritionist? nutritionist;
+  late DiyetisyenUserController userController;
+
   @override
   State<DiyetisyenMainPageController> createState() =>
       _DiyetisyenMainPageController();
@@ -22,6 +27,11 @@ class _DiyetisyenMainPageController
 
   // ignore: non_constant_identifier_names
   void _OnPressNavigationItems(int newIndex) {
+    if (widget.userController == null) {
+      print("usercontroller null");
+    } else {
+      print("usercontroller not null");
+    }
     setState(() {
       _currentSelectedIndex = newIndex;
     });
@@ -30,12 +40,12 @@ class _DiyetisyenMainPageController
   @override
   Widget build(BuildContext context) {
     final List<Widget> _mainPages = <Widget>[
-      const DiyetisyenMainPage(),
-      const DiyetisyenPastReviewsPage(),
-      const DiyetisyenDanisanlarPage(),
-      DiyetisyenProfilPage(
-        nutritionist: widget.nutritionist,
-      )
+      DiyetisyenMainPage(
+        userController: widget.userController,
+      ),
+      DiyetisyenPastReviewsPage(userController: widget.userController),
+      DiyetisyenDanisanlarPage(userController: widget.userController),
+      DiyetisyenProfilPage(userController: widget.userController)
     ];
     return Scaffold(
       appBar: AppBar(

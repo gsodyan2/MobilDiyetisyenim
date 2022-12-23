@@ -47,11 +47,11 @@ class Test extends StatelessWidget {
                   icon: const Icon(Icons.photo)),
               ElevatedButton(
                   onPressed: () {
-                    meal.photoUrl = _photoUrl;
+                    meal.photoUrl = _photoUrl!;
                     meal.patientId = _patient?.user.uid;
                     meal.patientNote = _mealNote.text;
                     meal.nutritionistId = _patient?.nutritionistId;
-                    meal.date = DateTime.now();
+                    meal.date = DateTime.now().toString();
 
                     _mealManager.addMeal(meal);
                   },

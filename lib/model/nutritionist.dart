@@ -4,6 +4,5 @@ class Nutritionist {
   late GeneralUser user;
 
   Nutritionist();
-
   Nutritionist.fromData(this.user);
 }
