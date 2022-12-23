@@ -114,10 +114,36 @@ class login_page extends StatelessWidget {
                               .signIn(_emailController.text,
                                   _passwordController.text)
                               .then((value) async => {
-                                    if (value?.isNutritionist ?? false)
+                                    if (value == null)
+                                      {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                                title: const Text(
+                                                    'Mobil Diyetisyenim'),
+                                                content: SingleChildScrollView(
+                                                  child: ListBody(
+                                                    children: <Widget>[
+                                                      const Text(
+                                                          'Girdiğiniz bilgiler ile bir kullanıcı bulunmamaktadır!'),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text("Tamam"))
+                                                    ],
+                                                  ),
+                                                ));
+                                          },
+                                        )
+                                      }
+                                    else if (value.isNutritionist)
                                       {
                                         _nutritionist?.user = value!,
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
@@ -126,11 +152,11 @@ class login_page extends StatelessWidget {
                                                           _nutritionist,
                                                     )))
                                       }
-                                    else
+                                    else if (!value.isNutritionist)
                                       {
                                         _patient = await _authService
                                             .getPatient(value),
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
@@ -193,4 +219,6 @@ class login_page extends StatelessWidget {
         ));
   }
 }
+
+
 //child: Image.asset("assets/giriş_resim.png"),

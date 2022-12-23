@@ -5,6 +5,7 @@ import 'package:flutter_application_1/DanisanPages/DanisanDiyetisyenPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/test.dart';
 import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanPastReviewsPage.dart';
+import 'package:flutter_application_1/insertMeal.dart';
 import 'package:flutter_application_1/model/generalUser.dart';
 import 'package:flutter_application_1/model/patient.dart';
 
@@ -21,7 +22,7 @@ class DanisanMainPageController extends StatefulWidget {
 }
 
 class _DanisanMainPageController extends State<DanisanMainPageController> {
-  int _currentSelectedIndex = 3;
+  int _currentSelectedIndex = 0;
 
   void _OnPressNavigationItems(int newIndex) {
     setState(() {
@@ -38,7 +39,22 @@ class _DanisanMainPageController extends State<DanisanMainPageController> {
       DanisanProfilPage(patient: widget.patient)
     ];
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.mainBackgrounColor,
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => InsertMeal(
+                        patient: widget.patient,
+                      )));
+        },
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Center(child: Text("Mobil Diyetisyenim")),
           backgroundColor: AppColors.mainBackgrounColor),
       body: _mainPages.elementAt(_currentSelectedIndex),
@@ -48,9 +64,15 @@ class _DanisanMainPageController extends State<DanisanMainPageController> {
           backgroundColor: AppColors.mainBackgrounColor,
           type: BottomNavigationBarType.fixed,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.food_bank), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ""),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.fastfood_outlined), label: ""),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.manage_accounts_sharp), label: ""),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
           ],
           onTap: _OnPressNavigationItems),

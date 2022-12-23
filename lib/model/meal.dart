@@ -8,6 +8,7 @@ class Meal {
   String? photoUrl;
   bool isAnswered = false;
   bool isPassive = false;
+  bool isConfirm = false;
   late DateTime date;
   late MealManager mealManager;
 

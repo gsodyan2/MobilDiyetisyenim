@@ -31,7 +31,7 @@ class _DanisanMainPageState extends State<DanisanMainPage> {
               .where('isAnswered', isEqualTo: false)
               .snapshots(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (snapshot.hasData && snapshot.data!.docs.length > 0) {
               final snap = snapshot.data!.docs;
 
               return Column(
@@ -88,9 +88,25 @@ class _DanisanMainPageState extends State<DanisanMainPage> {
                 ],
               );
             } else {
-              return const SizedBox(
-                height: 100,
-                width: 100,
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(23.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "Yanıt bekleyen öğününüz bulunmamaktadır.",
+                        style: GoogleFonts.bebasNeue(fontSize: 22),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Icon(
+                          Icons.emoji_emotions_outlined,
+                          size: 100,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               );
             }
           },

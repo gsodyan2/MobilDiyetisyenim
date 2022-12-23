@@ -19,4 +19,10 @@ class MealManager extends Meal {
       "photoUrl": meal.photoUrl,
     });
   }
+
+  getMeal(String docId) async {
+    var meal = _collectionRef.doc(docId).get();
+
+    return meal;
+  }
 }
