@@ -142,7 +142,7 @@ class login_page extends StatelessWidget {
                                       }
                                     else if (value.isNutritionist)
                                       {
-                                        _nutritionist?.user = value!,
+                                        _nutritionist.user = value,
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(

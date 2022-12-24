@@ -9,7 +9,7 @@ class Meal {
   bool isAnswered = false;
   bool isPassive = false;
   bool isConfirm = false;
-  late DateTime date;
+  late String date;
   late MealManager mealManager;
 
   Meal();

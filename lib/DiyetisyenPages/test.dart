@@ -51,7 +51,7 @@ class Test extends StatelessWidget {
                     meal.patientId = _patient?.user.uid;
                     meal.patientNote = _mealNote.text;
                     meal.nutritionistId = _patient?.nutritionistId;
-                    meal.date = DateTime.now();
+                    meal.date = DateTime.now().toString();
 
                     _mealManager.addMeal(meal);
                   },
