@@ -22,7 +22,6 @@ class DiyetisyenUserController {
     userData.uid = userId;
     userData.email = profilData!["email"];
     userData.fullName = profilData["fullName"];
-    userData.gender = profilData["gender"];
     userData.height = profilData["height"];
     userData.isNutritionist = profilData["isNutritionist"];
     userData.weight = profilData["weight"];
@@ -37,24 +36,16 @@ class DiyetisyenUserController {
   Future<List<Patient>> GetDanisanProfilInfos() async {
     List<Patient> result = <Patient>[];
 
-    var userCollection = await _firestore.collection('UserInfo').get();
+    var userCollection =
+        await _firestore.collection('UserInfo').get(GetOptions());
     var userList = userCollection.docs;
 
     for (var userInfoData in userList) {
-      print("user searching" + userInfoData.data()["fullName"].toString());
       bool isNutrionist = userInfoData.data()["isNutritionist"];
-
-      print("Is nutrionist = " + isNutrionist.toString());
-
       if (isNutrionist) continue;
 
       String patientId = userInfoData.id;
-      print("patient Id = " + patientId.toString());
-
-      var nutID = await _GetDanisanDiyetisyenId(patientId);
-      print("nut id = " + nutID);
-
-      if (nutID == userId) {
+      if (_GetDanisanDiyetisyenId(patientId) == userId) {
         var patient = await _GetUserInfoForThisDiyetisyen(patientId);
         result.add(patient);
       }
@@ -67,7 +58,7 @@ class DiyetisyenUserController {
   Future<List<Meal>> GetReviewedMeals() async {
     List<Meal> meals = <Meal>[];
 
-    var mealCollection = await _firestore.collection("Meal").get();
+    var mealCollection = await _firestore.collection("Meal").get(GetOptions());
     var mealList = mealCollection.docs;
 
     for (var mealData in mealList) {
@@ -88,7 +79,7 @@ class DiyetisyenUserController {
   Future<List<Meal>> GetUnReviewedMeals() async {
     List<Meal> meals = <Meal>[];
 
-    var mealCollection = await _firestore.collection("Meal").get();
+    var mealCollection = await _firestore.collection("Meal").get(GetOptions());
     var mealList = mealCollection.docs;
 
     for (var mealData in mealList) {
@@ -108,24 +99,8 @@ class DiyetisyenUserController {
   // ignore: todo
   // TODO Spesific bir tane öğünün onaylanmasının kaydedilmesi.
 
-  void UpdateMealInfo(String mealId, bool isConfirm, String nutriNote) {
-    _firestore.collection('Meal').doc(mealId).update({
-      "isAnswered": true,
-      "isConfirm": isConfirm,
-      "nutritionistNote": nutriNote
-    });
-  }
-
   // Private yardımcı methodlar
-  Future<String> _GetUsernameWithId(String id) async {
-    print("requested id = " + id);
-    var dataSnapshot = await _firestore.collection('UserInfo').doc(id).get();
-    var profilData = dataSnapshot.data();
-
-    return profilData!["fullName"];
-  }
-
-  Future<Patient> _GetUserInfoForThisDiyetisyen(String patientID) async {
+  Future<Patient> _GetUserInfoForThisDiyetisyen(patientID) async {
     var dataSnaphot =
         await _firestore.collection('UserInfo').doc(patientID).get();
     var profilData = dataSnaphot.data();
@@ -135,7 +110,6 @@ class DiyetisyenUserController {
     userData.uid = userId;
     userData.email = profilData!["email"];
     userData.fullName = profilData["fullName"];
-    userData.gender = profilData["gender"];
     userData.height = profilData["height"];
     userData.isNutritionist = profilData["isNutritionist"];
     userData.weight = profilData["weight"];
@@ -149,22 +123,14 @@ class DiyetisyenUserController {
     var dataSnaphot = await _firestore.collection('Meal').doc(mealId).get();
     var mealData = dataSnaphot.data();
 
-    var id = mealData!["patientId"];
-    var patientUserName = await _GetUsernameWithId(id);
-
-    print("Meal id = " + mealId);
-
     return Meal.fromData(
-        patientUserName,
-        mealData["patientId"],
+        mealData!["patientID"],
         mealData["patientNote"],
         mealData["nutritionistId"],
         mealData["date"],
         mealData["nutritionistNote"],
         mealData["photoUrl"],
-        MealManager(),
-        mealData["isConfirm"],
-        mealId);
+        MealManager());
   }
 
   Future<String> _GetDanisanDiyetisyenId(patientID) async {

@@ -23,7 +23,7 @@ class _DanisanPastReviewsPageState extends State<DanisanPastReviewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        physics: ClampingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(20),
         child: StreamBuilder(

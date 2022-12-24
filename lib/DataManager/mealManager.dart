@@ -6,7 +6,7 @@ import 'package:flutter_application_1/model/patient.dart';
 class MealManager extends Meal {
   final CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('Meal');
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   addMeal(Meal meal) async {
     await _collectionRef.doc().set({
       "patientId": meal.patientId,
@@ -21,8 +21,23 @@ class MealManager extends Meal {
     });
   }
 
-  getMeal(String docId) async {
-    var meal = _collectionRef.doc(docId).get();
+  Future<Meal> getMeal(String docId) async {
+    DocumentSnapshot<Map<String, dynamic>> querySnapshot =
+        await _firestore.collection('Meal').doc(docId).get();
+
+    Map<String, dynamic>? mealData = querySnapshot.data();
+    Meal meal = Meal();
+
+    meal.date = mealData!["date"];
+    meal.photoUrl = mealData["photoUrl"];
+    meal.isConfirm = mealData["isConfirm"];
+    meal.patientId = mealData["patientId"];
+    meal.patientNote = mealData["patientNote"];
+    meal.isConfirm = false;
+    meal.nutritionistId = mealData["nutritionistId"];
+    meal.isPassive = mealData["isPassive"];
+    meal.isAnswered = mealData["isAnswered"];
+    meal.nutritionistNote = mealData["nutritionistNote"];
 
     return meal;
   }
