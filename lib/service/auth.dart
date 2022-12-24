@@ -55,6 +55,43 @@ class AuthService {
     return Nutritionist.fromData(currentUser);
   }
 
+  Future<Nutritionist> getNutritionistWithPatientId(String? patientId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection('PatientNutritionistMap')
+          .doc(patientId)
+          .get();
+
+      Map<String, dynamic>? nutritionistId = querySnapshot.data();
+
+      String nutrionistId = nutritionistId!["nutritionistId"];
+
+      DocumentSnapshot<Map<String, dynamic>> nutritionistSnapshot =
+          await _firestore.collection('UserInfo').doc(nutrionistId).get();
+
+      Map<String, dynamic>? nutritionistData = nutritionistSnapshot.data();
+
+      String uid = nutrionistId;
+      String email = nutritionistData!["email"];
+      String fullName = nutritionistData["fullName"];
+      String job = nutritionistData["job"];
+      String gender = nutritionistData["gender"];
+      int height = nutritionistData["height"];
+      int weight = nutritionistData["weight"];
+      bool isNutritionist = nutritionistData!["isNutritionist"];
+      String city = nutritionistData["city"];
+
+      GeneralUser _generalUser = GeneralUser.withData(uid, email, fullName, job,
+          gender, height, weight, isNutritionist, city);
+      Nutritionist _nutritionist = Nutritionist();
+      _nutritionist.user = _generalUser;
+
+      return _nutritionist;
+    } catch (e) {
+      return Nutritionist();
+    }
+  }
+
   signout() async {
     return await _auth.signOut();
   }

@@ -1,30 +1,19 @@
 import 'package:flutter_application_1/DataManager/mealManager.dart';
 
 class Meal {
-  String username = "";
   String? patientId;
   String? patientNote;
   String? nutritionistId;
   String? nutritionistNote;
-  late String photoUrl;
-  late String mealId;
+  String? photoUrl;
   bool isAnswered = false;
-  bool isConfirm = false;
   bool isPassive = false;
-  late String date;
+  bool isConfirm = false;
+  late DateTime date;
   late MealManager mealManager;
 
   Meal();
 
-  Meal.fromData(
-      this.username,
-      this.patientId,
-      this.patientNote,
-      this.nutritionistId,
-      this.date,
-      this.nutritionistNote,
-      this.photoUrl,
-      this.mealManager,
-      this.isConfirm,
-      this.mealId);
+  Meal.fromData(this.patientId, this.patientNote, this.nutritionistId,
+      this.date, this.nutritionistNote, this.photoUrl, this.mealManager);
 }

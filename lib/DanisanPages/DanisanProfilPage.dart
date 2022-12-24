@@ -3,6 +3,7 @@ import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
 import 'package:flutter_application_1/model/generalUser.dart';
 import 'package:flutter_application_1/model/patient.dart';
 import 'package:flutter_application_1/service/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DanisanProfilPage extends StatelessWidget {
   DanisanProfilPage({super.key, required this.patient});
@@ -15,18 +16,11 @@ class DanisanProfilPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Patient? _currentPatinet = patient;
     return Column(textBaseline: TextBaseline.alphabetic, children: [
-      Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.05,
-        decoration: BoxDecoration(
-          color: Color(0xFFFF8B71),
-        ),
-        child: Align(
-          alignment: AlignmentDirectional(0, 0.05),
-          child: Text(
-            "Profilim",
-            textAlign: TextAlign.center,
-          ),
+      Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          "Profilim",
+          style: GoogleFonts.bebasNeue(fontSize: 32),
         ),
       ),
       const Center(
@@ -89,11 +83,11 @@ class PropertyBox extends StatelessWidget {
           Text(
             propertyName,
             style: TextStyle(
-                fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
+                fontSize: 13, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
           Text(
             valueName,
-            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           )
         ]));
   }
