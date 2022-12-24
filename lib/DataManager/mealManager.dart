@@ -33,7 +33,7 @@ class MealManager extends Meal {
     meal.isConfirm = mealData["isConfirm"];
     meal.patientId = mealData["patientId"];
     meal.patientNote = mealData["patientNote"];
-    meal.isConfirm = false;
+    meal.isConfirm = mealData["isConfirm"];
     meal.nutritionistId = mealData["nutritionistId"];
     meal.isPassive = mealData["isPassive"];
     meal.isAnswered = mealData["isAnswered"];

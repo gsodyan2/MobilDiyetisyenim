@@ -47,7 +47,8 @@ class _DiyetisyenProfilPageState extends State<DiyetisyenProfilPage> {
         padding: EdgeInsets.all(12),
         child: CircleAvatar(
           radius: 75,
-          backgroundImage: AssetImage('assets/empty_profile.png'),
+          backgroundImage: NetworkImage(
+              "https://www.shutterstock.com/image-vector/nutritionist-diet-260nw-411321337.jpg"),
         ),
       )),
       PropertyBox(
