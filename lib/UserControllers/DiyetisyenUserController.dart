@@ -152,6 +152,8 @@ class DiyetisyenUserController {
     var id = mealData!["patientId"];
     var patientUserName = await _GetUsernameWithId(id);
 
+    print("Meal id = " + mealId);
+
     return Meal.fromData(
         patientUserName,
         mealData["patientId"],

@@ -12,6 +12,7 @@ class MealManager extends Meal {
       "patientId": meal.patientId,
       "date": DateTime.now().toString(),
       "isAnswered": meal.isAnswered,
+      "isConfirm": meal.isConfirm,
       "isPassive": meal.isPassive,
       "nutritionistId": meal.nutritionistId,
       "nutritionistNote": null,

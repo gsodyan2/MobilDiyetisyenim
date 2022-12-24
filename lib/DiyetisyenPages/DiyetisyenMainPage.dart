@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DanisanPages/DanisanMainPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenReviewMealPage.dart';
 
+import '../DanisanPages/DanisanDiyetisyenPage.dart';
 import '../ThemeRelatedSources/AppColors.dart';
 import '../UserControllers/DiyetisyenUserController.dart';
 
@@ -33,8 +34,9 @@ class DiyetisyenMainPageState extends State<DiyetisyenMainPage> {
 
   void SetMealList() async {
     if (isPageSet) return;
+    print("meal list working");
 
-    var mealList = await widget.userController?.GetUnReviewedMeals();
+    var mealList = await widget.userController.GetUnReviewedMeals();
     List<Widget> newList = <Widget>[];
 
     setState(() {
