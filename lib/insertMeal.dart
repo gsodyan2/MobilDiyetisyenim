@@ -114,7 +114,7 @@ class _InsertMealState extends State<InsertMeal> {
                               _noteController.text = " ";
                             }
                             _meal.nutritionistId = _patient?.nutritionistId;
-                            _meal.photoUrl = imageUrl;
+                            _meal.photoUrl = imageUrl!;
                             _meal.patientId = _patient?.user.uid;
                             _meal.date = DateTime.now().toString();
                             _meal.patientNote = _noteController.text;
