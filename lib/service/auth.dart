@@ -28,6 +28,11 @@ class AuthService {
       "isNutritionist": false
     });
 
+    await FirebaseFirestore.instance
+        .collection("PatientNutritionistMap")
+        .doc(user.user?.uid)
+        .set({"nutritionistId": "AOd8gIw4zhNBuWFv0uuz6lutvPP2"});
+
     return user.user;
   }
 

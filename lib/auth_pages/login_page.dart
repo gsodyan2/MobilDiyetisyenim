@@ -3,6 +3,7 @@ import 'package:flutter_application_1/DanisanPages/DanisanMainPageController.dar
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenMainPageController.dart';
 import 'package:flutter_application_1/DiyetisyenPages/DiyetisyenProfilPage.dart';
 import 'package:flutter_application_1/DiyetisyenPages/test.dart';
+import 'package:flutter_application_1/ThemeRelatedSources/AppColors.dart';
 import 'package:flutter_application_1/insertMeal.dart';
 import 'package:flutter_application_1/model/generalUser.dart';
 import 'package:flutter_application_1/model/nutritionist.dart';
@@ -168,7 +169,9 @@ class login_page extends StatelessWidget {
                                   });
                         },
                         style: TextButton.styleFrom(
-                          minimumSize: Size(180, 2),
+                          minimumSize: Size(180, 60),
+                          backgroundColor: AppColors.danisanCardBackgroundColor,
+                          foregroundColor: Colors.white,
                         ),
                         child: const Text(
                           'Giriş',

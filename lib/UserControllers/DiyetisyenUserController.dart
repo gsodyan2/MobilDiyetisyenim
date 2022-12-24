@@ -125,11 +125,11 @@ class DiyetisyenUserController {
 
     return Meal.fromData(
         mealData!["patientID"],
-        mealData!["patientNote"],
-        mealData!["nutritionistId"],
-        mealData!["date"],
-        mealData!["nutritionistNote"],
-        mealData!["photoUrl"],
+        mealData["patientNote"],
+        mealData["nutritionistId"],
+        mealData["date"],
+        mealData["nutritionistNote"],
+        mealData["photoUrl"],
         MealManager());
   }
 
